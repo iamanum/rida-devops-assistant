@@ -1,17 +1,19 @@
+// apps/frontend/tsconfig.json
 {
   "compilerOptions": {
-    "target": "ES2017",
+    "target": "ES2020",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
     "noEmit": true,
+    "moduleResolution": "NodeNext", // CRITICAL FIX
+    "module": "NodeNext", // CRITICAL FIX
+    "allowSyntheticDefaultImports": true, // CSS Import Fix
     "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "react-jsx",
+    "jsx": "preserve",
     "incremental": true,
     "plugins": [
       {
