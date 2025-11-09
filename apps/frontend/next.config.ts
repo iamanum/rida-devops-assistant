@@ -3,13 +3,11 @@ import type { NextConfig } from 'next';
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   
-  // CRITICAL FIX: Add this flag to ensure CSS is bundled correctly in App Router
-  // Isse Tailwind ki compilation Vercel par theek hogi.
+  // CRITICAL FIX: Setting esmExternals to false is often needed to force 
+  // Next.js to process dependencies (like Tailwind PostCSS plugins) correctly.
   experimental: {
-    esmExternals: true,
+    esmExternals: false, // Changed to false for stability
   },
-  
-  // Aur koi 'experimental' ya 'images' configuration nahi dalenge stability ke liye
 };
 
 export default nextConfig;
