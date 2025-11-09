@@ -9,8 +9,13 @@ import Header from '@/components/Header';
 
 const RCA_API = process.env.NEXT_PUBLIC_API_URL;
 
+// CRITICAL FIX: Prop type definition added
+type CodeBlockProps = {
+    code: string; 
+};
+
 // Component to display syntax-highlighted fix code
-const CodeBlock = ({ code }) => (
+const CodeBlock = ({ code }: CodeBlockProps) => (
     <div className="bg-gray-900 border border-cyan-700 p-4 rounded-lg mt-3 font-mono text-sm shadow-xl overflow-x-auto">
         <code className="text-cyan-400 whitespace-pre-wrap">{code}</code>
     </div>
@@ -20,8 +25,8 @@ export default function RcaEnginePage() {
     const [logSnippet, setLogSnippet] = useState('');
     const [context, setContext] = useState('');
     const [loading, setLoading] = useState(false);
-    const [result, setResult] = useState(null);
-    const [error, setError] = useState(null);
+    const [result, setResult] = useState<any>(null); // Setting result type to any for flexible AI JSON output
+    const [error, setError] = useState<string | null>(null);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -46,7 +51,8 @@ export default function RcaEnginePage() {
 
         } catch (err: any) {
             console.error("API Call Failed:", err);
-            setError(err.response?.data?.detail || "Could not connect to FastAPI server.");
+            // CORS/Network error is resolved by the Middleware in main.py
+            setError(err.response?.data?.detail || "Could not connect to FastAPI server. Check if backend is running on port 8001.");
         } finally {
             setLoading(false);
         }
@@ -64,7 +70,7 @@ export default function RcaEnginePage() {
                     </h1>
 
                     {/* Input Area */}
-                    <div className="bg-gray-900 p-8 rounded-xl shadow-2xl border border-gray-800 space-y-4">
+                    <div className="bg-white/5 backdrop-blur-sm p-8 rounded-xl shadow-2xl border border-gray-800 space-y-4 shadow-black/50">
                         <form onSubmit={handleSubmit} className="space-y-4">
                             <label className="block text-sm font-medium text-gray-300">Log Snippet (Required)</label>
                             <textarea
@@ -88,7 +94,7 @@ export default function RcaEnginePage() {
                             <button
                                 type="submit"
                                 disabled={loading}
-                                className={`flex items-center justify-center px-6 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm transition duration-150 ${
+                                className={`flex items-center justify-center px-6 py-2 border border-transparent text-sm font-medium rounded-md shadow-lg transition duration-150 ${
                                     loading 
                                         ? 'bg-gray-600 text-gray-400 cursor-not-allowed' 
                                         : 'bg-cyan-600 text-white hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500'
@@ -102,7 +108,7 @@ export default function RcaEnginePage() {
 
                     {/* Result Area */}
                     {(error || result) && (
-                        <div className="mt-8 bg-gray-900 p-8 rounded-xl shadow-2xl border border-gray-700 space-y-4">
+                        <div className="mt-8 bg-white/5 backdrop-blur-sm p-8 rounded-xl shadow-2xl border border-cyan-900/50 space-y-4 shadow-black/50">
                             <h2 className="text-xl font-bold border-b border-gray-700 pb-2 mb-4 text-white">Analysis Results</h2>
 
                             {error && (
@@ -117,7 +123,7 @@ export default function RcaEnginePage() {
                                     {/* 1. Summary */}
                                     <div className="space-y-2">
                                         <div className="flex items-center text-lg font-semibold text-white">
-                                            <LightBulbIcon className="h-6 w-6 text-yellow-500 mr-2" />
+                                            <LightBulbIcon className="h-6 w-6 text-yellow-400 mr-2" />
                                             Summary & Root Cause
                                         </div>
                                         <p className="text-gray-300 border-l-4 border-yellow-500 pl-3 py-1 bg-gray-800/50">
@@ -134,6 +140,7 @@ export default function RcaEnginePage() {
                                             <WrenchScrewdriverIcon className="h-6 w-6 text-cyan-500 mr-2" />
                                             Immediate Fix Suggestion
                                         </div>
+                                        {/* CodeBlock component call */}
                                         <CodeBlock code={result.fix_suggestion} />
                                     </div>
                                 </div>
@@ -145,5 +152,3 @@ export default function RcaEnginePage() {
         </div>
     );
 }
-
-// NOTE: Remember to install axios if you haven't already in the frontend folder: npm install axios
