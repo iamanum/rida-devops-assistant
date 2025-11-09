@@ -1,8 +1,8 @@
-// apps/frontend/postcss.config.mjs (Final Correct Code)
+// apps/frontend/postcss.config.mjs
+// Final, reliable configuration for Tailwind and PostCSS
 export default {
   plugins: {
-    // CRITICAL FIX: 'tailwindcss' ko '@tailwindcss/postcss' se replace karen
-    '@tailwindcss/postcss': {}, 
+    'tailwindcss': {}, 
     'autoprefixer': {},
   },
 };

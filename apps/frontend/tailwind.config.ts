@@ -1,23 +1,29 @@
-// apps/frontend/tailwind.config.ts
-
 import type { Config } from 'tailwindcss';
 
 const config: Config = {
-  // Yeh paths Next.js App Router ke liye standard hain
+  // Specify the files Tailwind should scan for class names
   content: [
-    './app/**/*.{js,ts,jsx,tsx,mdx}', 
-    './components/**/*.{js,ts,jsx,tsx,mdx}',
-    './pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './app/**/*.{ts,tsx,js,jsx}',  // Next.js 15 app directory
+    './components/**/*.{ts,tsx,js,jsx}',
+    './pages/**/*.{ts,tsx,js,jsx}'
   ],
-  
-  // Dark Mode ko class based rakhenge
-  darkMode: 'class', 
-  
   theme: {
-    // Extend block ko khaali rakhte hain taaki koi Type Error na aaye
-    extend: {}, 
+    extend: {
+      colors: {
+        primary: '#1E40AF', // Custom primary color
+        secondary: '#F59E0B', // Custom secondary color
+      },
+      fontFamily: {
+        sans: ['Inter', 'ui-sans-serif', 'system-ui'],
+        mono: ['Fira Code', 'monospace'],
+      },
+    },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/forms'),   // For better form styling
+    require('@tailwindcss/typography'), // For prose / content styling
+  ],
+  darkMode: 'class', // Enable class-based dark mode
 };
 
 export default config;
