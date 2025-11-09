@@ -1,19 +1,22 @@
 // apps/frontend/app/layout.tsx
+import { Inter } from "next/font/google";
+import "./globals.css";
 
-import { Inter } from 'next/font/google'; // <--- CRITICAL FIX: Yeh line zaroori hai
+const inter = Inter({ subsets: ["latin"] });
 
-// import './globals.css'; // Yeh line already maujood hogi
+export const metadata = {
+  title: "RIDA | DevOps Assistant",
+  description: "Real-time Intelligent DevOps Assistant powered by GPT-4o Mini.",
+};
 
-const inter = Inter({ subsets: ['latin'] });
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    // CRITICAL CHANGE: bg-gray-950 ko bg-black ya bg-gray-900 karen
+    // Body ko deep black (Space Black) aur soft white text de rahe hain
     <html lang="en" className="dark"> 
-      {/* Black background aur soft white text */}
       <body className={`${inter.className} bg-black text-gray-100 antialiased`}>
         {children}
       </body>
