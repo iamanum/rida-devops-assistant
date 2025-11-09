@@ -1,25 +1,23 @@
 // apps/frontend/tailwind.config.ts
+
 import type { Config } from 'tailwindcss';
 
 const config: Config = {
-  // CRITICAL FIX: Ensure ALL content paths are explicitly included
+  // Yeh paths Next.js App Router ke liye standard hain
   content: [
-    './app/**/*.{js,ts,jsx,tsx,mdx}', // App directory
-    './components/**/*.{js,ts,jsx,tsx,mdx}', // Components directory
-    './pages/**/*.{js,ts,jsx,tsx,mdx}', // Fallback for Pages directory (if used)
+    './app/**/*.{js,ts,jsx,tsx,mdx}', 
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
+    './pages/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   
-  // Base theme and colors (unchanged, but necessary for the wow factor)
+  // Dark Mode ko class based rakhenge
   darkMode: 'class', 
+  
   theme: {
-    extend: {
-      colors: {
-        'rida-cyan': '#06B6D4',
-        'rida-red': '#DC2626',
-      },
-    },
+    // Extend block ko khaali rakhte hain taaki koi Type Error na aaye
+    extend: {}, 
   },
   plugins: [],
 };
+
 export default config;
-```
