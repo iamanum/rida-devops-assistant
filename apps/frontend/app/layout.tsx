@@ -15,8 +15,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    // Body ko deep black (Space Black) aur soft white text de rahe hain
-    <html lang="en" className="dark"> 
+    // FINAL FIX: HTML par dark mode aur body par deep black background
+    <html lang="en" className="dark bg-black"> 
       <body className={`${inter.className} bg-black text-gray-100 antialiased`}>
         {children}
       </body>
