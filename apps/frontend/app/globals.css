@@ -2,15 +2,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* --- FINAL WORKAROUND FIX FOR ICON SIZING --- */
-svg, 
-.h-6, .w-6 { 
-    height: 1.5rem !important; /* 24px */
-    width: 1.5rem !important;  /* 24px */
-}
-.h-8, .w-8 {
-    height: 2rem !important; /* 32px */
-    width: 2rem !important;  /* 32px */
-}
-/* --- END WORKAROUND --- */
