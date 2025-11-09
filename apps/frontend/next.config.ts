@@ -1,20 +1,17 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
+  // reactStrictMode ko true rakhenge, jo modern standard hai
   reactStrictMode: true,
-  typescript: {
-    // Build errors ko ignore karna avoid karein unless zaroori ho
-    ignoreBuildErrors: false,
+
+  // Yeh property Vercel ko batati hai ki Next.js project kahan se shuru hota hai
+  // Isse Tailwind compilation theek hoti hai
+  compiler: {
+    // Agar aapko console mein se 'data-testid' attributes hatane hain to yeh use karen
+    // removeConsole: process.env.NODE_ENV === 'production', 
   },
-  eslint: {
-    // ESLint warnings ko deploy build mein skip kar deta hai
-    ignoreDuringBuilds: true,
-  },
-  // Agar aap experimental features use kar rahe hain, yahaan add kar sakte hain
-  // example:
-  // experimental: {
-  //   serverActions: true,
-  // },
+  
+  // Aur koi 'experimental' ya 'images' configuration nahi daalenge stability ke liye
 };
 
 export default nextConfig;
